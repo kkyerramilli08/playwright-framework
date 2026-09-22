@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-08-16T13:43:45.535325Z",
+  "found": true,
+  "sources": [
+    {
+      "type": "db",
+      "path": "/home/jaanu/.n8n/database.sqlite",
+      "count": 3
+    }
+  ],
+  "files": [
+    "/home/jaanu/myprojects/playwright-framework/exports/My_workflow.json",
+    "/home/jaanu/myprojects/playwright-framework/exports/google_sheet_worklow.json",
+    "/home/jaanu/myprojects/playwright-framework/exports/AI-QA-Automated-Bug-Triage.json"
+  ]
+}

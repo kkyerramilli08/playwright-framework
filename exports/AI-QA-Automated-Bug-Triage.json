@@ -1,0 +1,193 @@
+{
+  "id": "zubTilhEcqnUtlcT",
+  "name": "AI-QA-Automated-Bug-Triage",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -64,
+        16
+      ],
+      "id": "a5e5bcb8-d544-4ba5-82f5-71b531163cae",
+      "name": "When chat message received",
+      "webhookId": "2f1c0362-d7cb-40f7-8446-4776d55bff87"
+    },
+    {
+      "parameters": {
+        "model": "qwen2.5:1.5b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        80,
+        208
+      ],
+      "id": "ae11a610-3e95-44e6-b4f9-416ba559da77",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "GtxtEcAjZ25d0B0a",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        240,
+        16
+      ],
+      "id": "1018e185-ffe8-45a1-a41a-745d2f56298c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        256,
+        224
+      ],
+      "id": "db0be52a-61b9-4026-874d-33efb8023f32",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "project": {
+          "__rl": true,
+          "value": "10001",
+          "mode": "list",
+          "cachedResultName": "n8n jira bug scrum"
+        },
+        "issueType": {
+          "__rl": true,
+          "value": "10012",
+          "mode": "list",
+          "cachedResultName": "Bug"
+        },
+        "summary": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Summary', `Create a short, clear, 5-word title summarizing what the error is based on the defect description row found in Sheet3.`, 'string') }}",
+        "additionalFields": {
+          "description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', `The exact string text taken from the 'defect' column value inside Sheet3`, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.jiraTool",
+      "typeVersion": 1,
+      "position": [
+        448,
+        224
+      ],
+      "id": "a59ad042-9540-40b6-8952-86369cd0086c",
+      "name": "Create an issue in Jira Software",
+      "credentials": {
+        "jiraSoftwareCloudApi": {
+          "id": "FCVB0j2uQ9yvrBUO",
+          "name": "Jira SW Cloud account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1K2eOfo-hcx4EVG9nKA6YdCjgLlez_MLrzfpcb8D2RLk",
+          "mode": "list",
+          "cachedResultName": "data_workflow",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1K2eOfo-hcx4EVG9nKA6YdCjgLlez_MLrzfpcb8D2RLk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 86197839,
+          "mode": "list",
+          "cachedResultName": "Sheet3",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1K2eOfo-hcx4EVG9nKA6YdCjgLlez_MLrzfpcb8D2RLk/edit#gid=86197839"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        624,
+        144
+      ],
+      "id": "de6ce980-af12-4a9d-be0d-96fd54911ba4",
+      "name": "Get row(s) in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "oOVdHFhkOarxcezU",
+          "name": "Google Sheets account 3"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an issue in Jira Software": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

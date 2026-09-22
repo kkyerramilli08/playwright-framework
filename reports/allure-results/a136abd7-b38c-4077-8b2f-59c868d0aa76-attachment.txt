@@ -1,0 +1,2 @@
+Error occurred while verifying about page
+Error occurred while logging out from application

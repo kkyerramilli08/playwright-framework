@@ -1,0 +1,13 @@
+n8n_local_data/
+
+# Ignore recovered workflow backups
+recovered_*.json
+.idea/
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Ignore generated test report artifacts
+reports/debug/
+reports/*.log

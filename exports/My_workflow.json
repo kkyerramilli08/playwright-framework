@@ -1,0 +1,80 @@
+{
+  "id": "9XP1yaNTGiYekBD6",
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "0c48f4a1-6f55-4aa4-812a-540f754ad4d1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "dcf37374-6e40-4e16-baab-fb17bed943d5",
+      "name": "Webhook",
+      "webhookId": "0c48f4a1-6f55-4aa4-812a-540f754ad4d1"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an expert QA Engineer. Analyze this Playwright Python traceback failure: {{ $json.body.error_message }}. Explain why the test failed and provide the exact Python code fix to correct the issue.",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        416,
+        0
+      ],
+      "id": "1e8e6430-1fb1-4506-ad39-80829b0e80c3",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        624,
+        0
+      ],
+      "id": "47830648-d72c-43af-aae7-a86a0caf8a45",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "J03vwEk8I6S53AsL",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
