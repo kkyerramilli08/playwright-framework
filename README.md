@@ -26,7 +26,6 @@ playwright-framework/
 ├── tests/           # Automated test scenarios
 ├── utilities/       # Reusable utilities and test data helpers
 ├── testData/        # Test data and configuration files
-├── reports/         # Test reports
 ├── exports/         # Generated/exported files
 ├── conftest.py      # Pytest fixtures and shared configuration
 ├── pytest.ini       # Pytest configuration
@@ -97,7 +96,6 @@ pytest tests/test_E2EScenario_new.py -v
 
 ### 📊 Test Output
 
-![E2E Test Output](E2EScenario_Test_passed.png)
 
 The E2E scenario completed successfully with **1 passed test**.
 
